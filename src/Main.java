@@ -78,7 +78,60 @@ public class Main {
                         System.out.println("No existe ningún cantante registrado con el ID: " + idBuscar);
                     }
                     break;
+                case 4:
+                    System.out.println("\n--- FILTRO ---");
+                    System.out.println("¿Por qué criterio desea filtrar?");
+                    System.out.println("1. Filtrar por Nacionalidad");
+                    System.out.println("2. Filtrar por Género Musical");
+                    System.out.println("3. Filtrar por Nombre del Cantante");
+                    System.out.print("Seleccione una opción (1, 2 o 3): ");
+
+                    int subOpcion = scanner.nextInt();
+                    scanner.nextLine();
+
+                    String columnaSeleccionada = "";
+                    String nombreCriterio = "";
+
+                    switch (subOpcion) {
+                        case 1:
+                            columnaSeleccionada = "nacionalidad";
+                            nombreCriterio = "Nacionalidad";
+                            break;
+                        case 2:
+                            columnaSeleccionada = "generomusical";
+                            nombreCriterio = "Género Musical";
+                            break;
+                        case 3:
+                            columnaSeleccionada = "nombre";
+                            nombreCriterio = "Nombre";
+                            break;
+                        default:
+                            System.out.println("Opción de filtro no válida. Regresando al menú principal.");
+                            columnaSeleccionada = null; // Se marca que no es válida para no continuar
+                            break;
+                    }
+
+                    // Si la opción fue válida, se pide el texto de búsqueda
+                    if (columnaSeleccionada != null) {
+                        System.out.print("Escriba el valor de " + nombreCriterio + " a buscar: ");
+                        String valorBusqueda = scanner.nextLine();
+
+                        List<Cantante> listaFiltrada = dao.filtrarPorCriterio(columnaSeleccionada, valorBusqueda);
+
+                        if (listaFiltrada.isEmpty()) {
+                            System.out.println("No se encontraron cantantes con ese criterio de búsqueda.");
+                        } else {
+                            System.out.println("\nCantantes encontrados (" + nombreCriterio + " similar a '" + valorBusqueda + "'):");
+                            System.out.println("-----------------------------------------------------------------------------------------------------------------");
+                            for (Cantante c : listaFiltrada) {
+                                // Imprimimos usando los getters correspondientes de tu clase Cantante
+                                System.out.println("ID: " + c.getId() + " | " + c.getNombre() + " (" + c.getNacionalidad() + ") - Género: " + c.getGeneromusical() + " | Éxito: " + c.getCancionreconocida());
+                            }
+                            System.out.println("-----------------------------------------------------------------------------------------------------------------");
+                        }
+                    }
+                    break;
             }
         }
+        }
     }
-}
