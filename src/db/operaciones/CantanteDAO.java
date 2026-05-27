@@ -4,6 +4,8 @@ import db.DBConnection;
 import model.Cantante;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CantanteDAO {
 
@@ -28,7 +30,31 @@ public class CantanteDAO {
         }
 
     }
+    public List<Cantante> consultarTodos() {
+        List<Cantante> lista = new ArrayList<>();
+        String sql = "SELECT * FROM cantantes";
 
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                Cantante c = new Cantante(
+                        rs.getString("nombre"),
+                        rs.getString("nacionalidad"),
+                        rs.getString("generomusical"),
+                        rs.getInt("edad"),
+                        rs.getString("cancionreconocida"),
+                        rs.getInt("id"),
+                        rs.getTimestamp("registrado")
+                );
+                lista.add(c);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al consultar todos los registros: " + e.getMessage());
+        }
+        return lista;
+    }
 
 
 }

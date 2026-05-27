@@ -1,6 +1,6 @@
 import db.operaciones.CantanteDAO;
 import model.Cantante;
-
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
