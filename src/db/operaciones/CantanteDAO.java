@@ -56,7 +56,7 @@ public class CantanteDAO {
         return lista;
     }
     public Cantante consultarUnRegistro(int id) {
-        String sql = "SELECT * FROM cantante WHERE id = ?";
+        String sql = "SELECT * FROM cantantes WHERE id = ?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {

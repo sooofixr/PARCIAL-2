@@ -38,6 +38,7 @@ public class Main {
                     String generoMusical = leer.nextLine();
                     System.out.println("Ingrese la edad del cantante");
                     int edad = leer.nextInt();
+                    leer.nextLine();
                     System.out.println("Ingrese una canción reconocida del cantante");
                     String cancionReconocida = leer.nextLine();
                     Cantante c = new Cantante(nombre, nacionalidad, generoMusical, edad, cancionReconocida);
@@ -50,8 +51,8 @@ public class Main {
                     if (listaCompleta.isEmpty()) {
                         System.out.println("No hay registros almacenados en la base de datos.");
                     } else {
-                        for (Cantante c : listaCompleta) {
-                            System.out.println("ID: " + c.getId() + " | " + c.getNombre() + " (" + c.getNacionalidad() + ") - Género: " + c.getGeneromusical() + " | Edad: " + c.getEdad() + " | Éxito: '" + c.getCancionreconocida() + "' | Registrado: " + c.getRegistrado());
+                        for (Cantante ca : listaCompleta) {
+                            System.out.println("ID: " + ca.getId() + " | " + ca.getNombre() + " (" + ca.getNacionalidad() + ") - Género: " + ca.getGeneromusical() + " | Edad: " + ca.getEdad() + " | Éxito: '" + ca.getCancionreconocida() + "' | Registrado: " + ca.getRegistrado());
                         }
                     }
                     break;
@@ -64,7 +65,7 @@ public class Main {
                     Cantante cantanteEncontrado = dao.consultarUnRegistro(idBuscar);
 
                     if (cantanteEncontrado != null) {
-                        System.out.println("\n ¡Registro Encontrado!");
+                        System.out.println("\n Registro Encontrado");
                         System.out.println("-------------------------------------");
                         System.out.println("• Nombre: " + cantanteEncontrado.getNombre());
                         System.out.println("• Nacionalidad: " + cantanteEncontrado.getNacionalidad());
@@ -79,57 +80,62 @@ public class Main {
                     }
                     break;
                 case 4:
-                    System.out.println("\n--- FILTRO ---");
-                    System.out.println("¿Por qué criterio desea filtrar?");
-                    System.out.println("1. Filtrar por Nacionalidad");
-                    System.out.println("2. Filtrar por Género Musical");
-                    System.out.println("3. Filtrar por Nombre del Cantante");
-                    System.out.print("Seleccione una opción (1, 2 o 3): ");
+                System.out.println("\n--- FILTRO ---");
+                System.out.println("¿Por qué criterio desea filtrar?");
+                System.out.println("1. Filtrar por Nacionalidad");
+                System.out.println("2. Filtrar por Género Musical");
+                System.out.println("3. Filtrar por Nombre del Cantante");
+                System.out.print("Seleccione una opción (1, 2 o 3): ");
 
-                    int subOpcion = scanner.nextInt();
-                    scanner.nextLine();
+                int subOpcion = scanner.nextInt();
+                scanner.nextLine(); // Limpieza de buffer
 
-                    String columnaSeleccionada = "";
-                    String nombreCriterio = "";
+                String columnaSeleccionada = "";
+                String nombreCriterio = "";
 
-                    switch (subOpcion) {
-                        case 1:
-                            columnaSeleccionada = "nacionalidad";
-                            nombreCriterio = "Nacionalidad";
-                            break;
-                        case 2:
-                            columnaSeleccionada = "generomusical";
-                            nombreCriterio = "Género Musical";
-                            break;
-                        case 3:
-                            columnaSeleccionada = "nombre";
-                            nombreCriterio = "Nombre";
-                            break;
-                        default:
-                            System.out.println("Opción de filtro no válida. Regresando al menú principal.");
-                            columnaSeleccionada = null; // Se marca que no es válida para no continuar
-                            break;
-                    }
+                switch (subOpcion) {
+                    case 1:
+                        columnaSeleccionada = "nacionalidad";
+                        nombreCriterio = "Nacionalidad";
+                        break;
+                    case 2:
+                        columnaSeleccionada = "generomusical";
+                        nombreCriterio = "Género Musical";
+                        break;
+                    case 3:
+                        columnaSeleccionada = "nombre";
+                        nombreCriterio = "Nombre";
+                        break;
+                    default:
+                        System.out.println("Opción de filtro no válida. Regresando al menú principal.");
+                        columnaSeleccionada = null; // Bandera de control para cancelar la operación si el índice es incorrecto
+                        break;
+                }
 
-                    // Si la opción fue válida, se pide el texto de búsqueda
-                    if (columnaSeleccionada != null) {
-                        System.out.print("Escriba el valor de " + nombreCriterio + " a buscar: ");
-                        String valorBusqueda = scanner.nextLine();
+                // Si la columna es válida, procesa la consulta avanzada con PreparedStatement (Criterio 6)
+                if (columnaSeleccionada != null) {
+                    System.out.print("Escriba el valor de " + nombreCriterio + " a buscar: ");
+                    String valorBusqueda = scanner.nextLine();
 
-                        List<Cantante> listaFiltrada = dao.filtrarPorCriterio(columnaSeleccionada, valorBusqueda);
+                    // Ejecución de la consulta filtrada dinámica a través del DAO
+                    List<Cantante> listaFiltrada = dao.filtrarPorCriterio(columnaSeleccionada, valorBusqueda);
 
-                        if (listaFiltrada.isEmpty()) {
-                            System.out.println("No se encontraron cantantes con ese criterio de búsqueda.");
-                        } else {
-                            System.out.println("\nCantantes encontrados (" + nombreCriterio + " similar a '" + valorBusqueda + "'):");
-                            System.out.println("-----------------------------------------------------------------------------------------------------------------");
-                            for (Cantante c : listaFiltrada) {
-                                // Imprimimos usando los getters correspondientes de tu clase Cantante
-                                System.out.println("ID: " + c.getId() + " | " + c.getNombre() + " (" + c.getNacionalidad() + ") - Género: " + c.getGeneromusical() + " | Éxito: " + c.getCancionreconocida());
-                            }
-                            System.out.println("-----------------------------------------------------------------------------------------------------------------");
+                    if (listaFiltrada.isEmpty()) {
+                        System.out.println("No se encontraron cantantes con ese criterio de búsqueda.");
+                    } else {
+                        System.out.println("\nCantantes encontrados (" + nombreCriterio + " similar a '" + valorBusqueda + "'):");
+                        System.out.println("-----------------------------------------------------------------------------------------------------------------");
+                        // Se corrige el nombre de la variable local a 'f' para evitar la colisión de nombres con la 'c' declarada en el case 1
+                        for (Cantante f : listaFiltrada) {
+                            System.out.println("ID: " + f.getId() + " | " + f.getNombre() + " (" + f.getNacionalidad() + ") - Género: " + f.getGeneromusical() + " | Éxito: " + f.getCancionreconocida());
                         }
+                        System.out.println("-----------------------------------------------------------------------------------------------------------------");
                     }
+                }
+                break;
+
+                default:
+                    System.out.println("Opción incorrecta. Intente un número del 1 al 5.");
                     break;
             }
         }
