@@ -24,7 +24,7 @@ public class Main {
             scanner.nextLine();
 
             if (opcion == 5) {
-                System.out.println("\n👋 Saliendo del sistema de gestión. ¡Hasta luego!");
+                System.out.println("\n Saliendo del sistema de gestión. ¡Hasta luego!");
                 break;
             }
 
@@ -53,6 +53,29 @@ public class Main {
                         for (Cantante c : listaCompleta) {
                             System.out.println("ID: " + c.getId() + " | " + c.getNombre() + " (" + c.getNacionalidad() + ") - Género: " + c.getGeneromusical() + " | Edad: " + c.getEdad() + " | Éxito: '" + c.getCancionreconocida() + "' | Registrado: " + c.getRegistrado());
                         }
+                    }
+                    break;
+                case 3:
+                    System.out.println("\n --- CONSULTAR UN REGISTRO ---");
+                    System.out.print("Ingrese el ID del cantante a buscar: ");
+                    int idBuscar = scanner.nextInt();
+                    scanner.nextLine(); // Limpiar buffer
+
+                    Cantante cantanteEncontrado = dao.consultarUnRegistro(idBuscar);
+
+                    if (cantanteEncontrado != null) {
+                        System.out.println("\n ¡Registro Encontrado!");
+                        System.out.println("-------------------------------------");
+                        System.out.println("• Nombre: " + cantanteEncontrado.getNombre());
+                        System.out.println("• Nacionalidad: " + cantanteEncontrado.getNacionalidad());
+                        System.out.println("• Género Musical: " + cantanteEncontrado.getGeneromusical());
+                        System.out.println("• Edad: " + cantanteEncontrado.getEdad() + " años");
+                        System.out.println("• Canción Famosa: " + cantanteEncontrado.getCancionreconocida());
+                        System.out.println("• ID: " + cantanteEncontrado.getId());
+                        System.out.println("• Fecha de Registro: " + cantanteEncontrado.getRegistrado());
+                        System.out.println("-------------------------------------");
+                    } else {
+                        System.out.println("No existe ningún cantante registrado con el ID: " + idBuscar);
                     }
                     break;
             }
