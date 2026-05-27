@@ -55,6 +55,31 @@ public class CantanteDAO {
         }
         return lista;
     }
+    public Cantante consultarUnRegistro(int id) {
+        String sql = "SELECT * FROM cantante WHERE id = ?";
 
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, id);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    return new Cantante(
+                            rs.getString("nombre"),
+                            rs.getString("nacionalidad"),
+                            rs.getString("generomusical"),
+                            rs.getInt("edad"),
+                            rs.getString("cancionreconocida"),
+                            rs.getInt("id"),
+                            rs.getTimestamp("registrado")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al consultar el registro con ID " + id + ": " + e.getMessage());
+        }
+        return null;
+    }
 
 }
