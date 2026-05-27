@@ -31,5 +31,5 @@ PARCIAL-2/
 ## Cómo Ejecutar el Proyecto
 
 1. Clonar el repositorio:
-   ```bash
+   bash
    git clone [https://github.com/tu-usuario/PARCIAL-2.git](https://github.com/tu-usuario/PARCIAL-2.git)
