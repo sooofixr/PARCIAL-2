@@ -13,6 +13,20 @@ El proyecto está diseñado para resolver los problemas planteados en la evaluac
 ## Estructura del Repositorio
 * `src/` o archivos principales: Contiene el código fuente del examen.
 * `README.md`: Descripción general del proyecto.
+```bash
+PARCIAL-2/
+│
+├── src/
+│   ├── db/
+│   │   ├── operaciones/
+│   │   └── DBConnection.java
+│   │
+│   ├── model/
+│   │
+│   └── main/
+│
+├── README.md
+└── ...
 
 ## Cómo Ejecutar el Proyecto
 
