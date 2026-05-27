@@ -81,5 +81,33 @@ public class CantanteDAO {
         }
         return null;
     }
+    public List<Cantante> filtrarPorCriterio(String columna, String valorCriterio) {
+        List<Cantante> lista = new ArrayList<>();
 
+        String sql = "SELECT * FROM cantante WHERE LOWER(" + columna + ") LIKE LOWER(?)";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, "%" + valorCriterio + "%");
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    Cantante c = new Cantante(
+                            rs.getString("nombre"),
+                            rs.getString("nacionalidad"),
+                            rs.getString("generomusical"),
+                            rs.getInt("edad"),
+                            rs.getString("cancionreconocida"),
+                            rs.getInt("id"),
+                            rs.getTimestamp("registrado")
+                    );
+                    lista.add(c);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al ejecutar el filtro dinámico: " + e.getMessage());
+        }
+        return lista;
+    }
 }
