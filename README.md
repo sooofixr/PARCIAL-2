@@ -7,8 +7,7 @@ El proyecto está diseñado para resolver los problemas planteados en la evaluac
 
 ## Tecnologías Utilizadas
 * **Lenguaje:** C++
-* **Herramientas de desarrollo:** [Mencionar si usaste algún IDE como VS Code, Dev-C++, etc.]
-* **Otras herramientas:** [Mencionar si usaste diagramas de flujo/DFD si aplica]
+* **Herramientas de desarrollo:** IntelliJ, NEON, Git Hub
 
 ## Estructura del Repositorio
 * `src/` o archivos principales: Contiene el código fuente del examen.
