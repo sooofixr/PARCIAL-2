@@ -110,4 +110,5 @@ public class CantanteDAO {
         }
         return lista;
     }
+
 }
