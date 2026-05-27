@@ -43,6 +43,18 @@ public class Main {
                     Cantante c = new Cantante(nombre, nacionalidad, generoMusical, edad, cancionReconocida);
                     dao.insertarCantante(c);
             }
+            break;
+                case 2:
+                    System.out.println("\n📋 --- LISTA DE TODOS LOS CANTANTES EN NEON ---");
+                    List<Cantante> listaCompleta = dao.consultarTodos();
+                    if (listaCompleta.isEmpty()) {
+                        System.out.println("No hay registros almacenados en la base de datos.");
+                    } else {
+                        for (Cantante c : listaCompleta) {
+                            System.out.println("ID: " + c.getId() + " | " + c.getNombre() + " (" + c.getNacionalidad() + ") - Género: " + c.getGeneromusical() + " | Edad: " + c.getEdad() + " | Éxito: '" + c.getCancionreconocida() + "' | Registrado: " + c.getRegistrado());
+                        }
+                    }
+            break;
 
         }
     }
