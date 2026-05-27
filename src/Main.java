@@ -42,10 +42,10 @@ public class Main {
                     String cancionReconocida = leer.nextLine();
                     Cantante c = new Cantante(nombre, nacionalidad, generoMusical, edad, cancionReconocida);
                     dao.insertarCantante(c);
-            }
-            break;
+
+                    break;
                 case 2:
-                    System.out.println("\n📋 --- LISTA DE TODOS LOS CANTANTES EN NEON ---");
+                    System.out.println("\n --- LISTA DE TODOS LOS CANTANTES EN NEON ---");
                     List<Cantante> listaCompleta = dao.consultarTodos();
                     if (listaCompleta.isEmpty()) {
                         System.out.println("No hay registros almacenados en la base de datos.");
@@ -54,8 +54,8 @@ public class Main {
                             System.out.println("ID: " + c.getId() + " | " + c.getNombre() + " (" + c.getNacionalidad() + ") - Género: " + c.getGeneromusical() + " | Edad: " + c.getEdad() + " | Éxito: '" + c.getCancionreconocida() + "' | Registrado: " + c.getRegistrado());
                         }
                     }
-            break;
-
+                    break;
+            }
         }
     }
 }
