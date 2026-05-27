@@ -10,9 +10,9 @@ public class Main {
         Scanner leer = new Scanner(System.in);
 
         while (true) {
-            System.out.println("\n=============================================");
+            System.out.println("\n---------------------------------------------");
             System.out.println("   SISTEMA DE GESTIÓN DE CANTANTES (NEON)   ");
-            System.out.println("=============================================");
+            System.out.println("--------------------------------------------");
             System.out.println("1. Adicionar un registro de cantante");
             System.out.println("2. Consultar todos los registros");
             System.out.println("3. Consultar un registro por ID");
