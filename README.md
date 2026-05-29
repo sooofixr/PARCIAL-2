@@ -6,7 +6,7 @@ Este repositorio contiene los archivos y la solución correspondientes al Segund
 El proyecto está diseñado para resolver los problemas planteados en la evaluación, aplicando los conceptos vistos en clase (estructuras de datos, lógica de programación y algoritmos).
 
 ## Tecnologías Utilizadas
-* **Lenguaje:** C++
+* **Lenguaje:** JAVA
 * **Herramientas de desarrollo:** IntelliJ, NEON, Git Hub
 
 ## Estructura del Repositorio
