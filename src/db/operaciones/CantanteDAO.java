@@ -84,7 +84,7 @@ public class CantanteDAO {
     public List<Cantante> filtrarPorCriterio(String columna, String valorCriterio) {
         List<Cantante> lista = new ArrayList<>();
 
-        String sql = "SELECT * FROM cantante WHERE LOWER(" + columna + ") LIKE LOWER(?)";
+        String sql = "SELECT * FROM cantantes WHERE LOWER(" + columna + ") LIKE LOWER(?)";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
